@@ -9,7 +9,7 @@ if [ -d "lib/lwjgl" ]; then
   LWJGL_CP=".:lib/lwjgl/*"
 fi
 SOURCES=$(find src/main/java -type f -name "*.java")
-javac -d build/classes -cp "$LWJGL_CP" $SOURCES
+javac -encoding UTF-8 -d build/classes -cp "$LWJGL_CP" $SOURCES
 
 LWJGL_DIR="lib/lwjgl"
 CLASSPATH="build/classes"

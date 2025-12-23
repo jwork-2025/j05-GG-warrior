@@ -65,7 +65,15 @@ extract_natives() {
 
 main() {
   detect_platform
-  classifier="${OS}-${ARCH}"
+  # LWJGL native jars on Maven Central use a classifier that identifies the OS
+  # (for 3.3.6 the natives are named e.g. lwjgl-3.3.6-natives-windows.jar)
+  # Use just the OS here (windows/linux/macos) rather than including the CPU arch.
+  case "$OS" in
+    windows) classifier="windows";;
+    linux) classifier="linux";;
+    macos) classifier="macos";;
+    *) classifier="$OS";;
+  esac
   mkdir -p "$LIB_DIR"
   for m in "" "-glfw" "-opengl"; do
     download_module "$m" "$classifier"
